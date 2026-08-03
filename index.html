@@ -904,6 +904,251 @@
       .header-search { display: none; }
       .cart-drawer { width: 100vw; }
     }
+
+    /* ============================================================
+       HEADER CONTACT LINK
+    ============================================================ */
+    .header-contact {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--teal);
+      padding: 8px 14px;
+      border: 2px solid var(--teal);
+      border-radius: var(--radius);
+      transition: background .18s ease, color .18s ease, transform .18s ease;
+      white-space: nowrap;
+    }
+    .header-contact:hover { background: var(--teal); color: #fff; transform: translateY(-1px); }
+
+    /* ============================================================
+       FEATURED MARQUEE (ships to the USA)
+    ============================================================ */
+    .featured {
+      position: relative;
+      padding: 44px 0 48px;
+      background:
+        radial-gradient(1200px 240px at 12% 0%, rgba(13,148,136,.09), transparent 70%),
+        radial-gradient(1000px 240px at 88% 100%, rgba(249,115,22,.10), transparent 70%),
+        var(--white);
+      border-bottom: 2px solid var(--border);
+      overflow: hidden;
+    }
+    .featured-head {
+      max-width: 1400px;
+      margin: 0 auto 26px;
+      padding: 0 24px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .featured-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--tangerine);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .featured-eyebrow::after {
+      content: '';
+      width: 44px; height: 2px;
+      background: linear-gradient(90deg, var(--tangerine), transparent);
+    }
+    .featured-title {
+      font-size: 1.65rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+    }
+    .featured-sub {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      max-width: 420px;
+    }
+    .featured-viewport { position: relative; }
+    .featured-viewport::before,
+    .featured-viewport::after {
+      content: '';
+      position: absolute; top: 0; bottom: 0; width: 90px;
+      z-index: 3; pointer-events: none;
+    }
+    .featured-viewport::before { left: 0;  background: linear-gradient(90deg, var(--white), transparent); }
+    .featured-viewport::after  { right: 0; background: linear-gradient(270deg, var(--white), transparent); }
+
+    .featured-track {
+      display: flex;
+      gap: 20px;
+      width: max-content;
+      padding: 6px 24px;
+      animation: marquee 46s linear infinite;
+    }
+    .featured-viewport:hover .featured-track,
+    .featured-track:focus-within { animation-play-state: paused; }
+    @keyframes marquee {
+      from { transform: translate3d(0,0,0); }
+      to   { transform: translate3d(-50%,0,0); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .featured-track { animation: none; }
+      .featured-viewport { overflow-x: auto; }
+    }
+
+    .fcard {
+      flex: 0 0 auto;
+      width: 250px;
+      background: var(--white);
+      border: 2px solid var(--border);
+      border-radius: calc(var(--radius) + 4px);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+    }
+    .fcard:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--tangerine);
+    }
+    .fcard .card-image-wrap {
+      position: relative;
+      height: 200px;
+      background: var(--cream);
+      cursor: pointer;
+      overflow: hidden;
+    }
+    .fcard .card-image-wrap img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform .4s ease;
+    }
+    .fcard:hover .card-image-wrap img { transform: scale(1.06); }
+    .fcard-flag {
+      position: absolute; top: 10px; left: 10px; z-index: 2;
+      background: rgba(255,255,255,.94);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--brown);
+      box-shadow: var(--shadow-sm);
+    }
+    .fcard-body { padding: 14px 14px 16px; }
+    .fcard .card-vendor {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 5px;
+    }
+    .fcard .card-title {
+      font-size: 0.92rem;
+      font-weight: 600;
+      line-height: 1.3;
+      cursor: pointer;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      min-height: 2.4em;
+    }
+    .fcard-row {
+      margin-top: 10px;
+      display: flex; align-items: center; justify-content: space-between; gap: 8px;
+    }
+    .fcard .card-price {
+      font-family: var(--font-mono);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--tangerine);
+    }
+    .fcard .card-atc {
+      border: none;
+      background: var(--teal);
+      color: #fff;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 8px 12px;
+      border-radius: var(--radius);
+      transition: background .18s ease;
+    }
+    .fcard .card-atc:hover:not(:disabled) { background: var(--teal-dark); }
+    .fcard .card-atc:disabled { background: var(--border); color: var(--text-muted); cursor: not-allowed; }
+
+    .fskel { flex: 0 0 auto; width: 250px; height: 320px; border-radius: calc(var(--radius) + 4px); background: var(--cream); border: 2px solid var(--border); }
+
+    /* ============================================================
+       SITE FOOTER
+    ============================================================ */
+    .site-footer {
+      background: var(--brown);
+      color: #f5efe7;
+      padding: 52px 24px 34px;
+      margin-top: 40px;
+    }
+    .footer-inner { max-width: 1400px; margin: 0 auto; }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 36px;
+      padding-bottom: 30px;
+      border-bottom: 1px solid rgba(255,255,255,.18);
+    }
+    .footer-brand { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+    .footer-brand-mark {
+      width: 38px; height: 38px; border-radius: 10px;
+      background: var(--tangerine);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.15rem;
+    }
+    .footer-brand-text { font-size: 1.25rem; font-weight: 700; letter-spacing: -0.02em; }
+    .footer-brand-text span { color: var(--tangerine); }
+    .footer-blurb { font-size: 0.88rem; line-height: 1.65; color: rgba(245,239,231,.78); max-width: 420px; }
+    .footer-heading {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(245,239,231,.62);
+      margin-bottom: 14px;
+    }
+    .footer-links { list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px 18px; }
+    .footer-links a {
+      font-size: 0.88rem;
+      color: rgba(245,239,231,.9);
+      transition: color .18s ease, padding-left .18s ease;
+    }
+    .footer-links a:hover { color: var(--tangerine); padding-left: 4px; }
+    .footer-contact {
+      margin-top: 26px;
+      font-size: 0.85rem;
+      line-height: 1.7;
+      color: rgba(245,239,231,.8);
+    }
+    .footer-contact strong { color: #fff; }
+    .footer-contact a { color: var(--tangerine); text-decoration: underline; }
+    .footer-contact-note { display: block; margin-top: 6px; font-size: 0.78rem; color: rgba(245,239,231,.62); }
+    .footer-bottom {
+      margin-top: 22px;
+      display: flex; flex-wrap: wrap; gap: 10px 18px;
+      align-items: center; justify-content: space-between;
+      font-size: 0.78rem;
+      color: rgba(245,239,231,.6);
+    }
+    @media (max-width: 860px) {
+      .footer-top { grid-template-columns: 1fr; }
+      .featured-title { font-size: 1.35rem; }
+    }
+    @media (max-width: 480px) {
+      .header-contact { padding: 6px 10px; font-size: 0.8rem; }
+      .footer-links { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 
@@ -922,6 +1167,8 @@
       <div class="header-search">
         <input type="search" placeholder="Search products…" id="searchInput" />
       </div>
+
+      <a class="header-contact" href="https://hs1tmm-f5.myshopify.com/pages/contact" target="_blank" rel="noopener">Contact</a>
 
       <button class="cart-btn" id="cartToggleBtn" aria-label="Open cart">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -947,6 +1194,26 @@
       <button class="hero-cta" onclick="document.querySelector('.catalog-layout').scrollIntoView({behavior:'smooth'})">
         Shop the Catalog ↓
       </button>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       FEATURED SLIDESHOW — ships to the USA
+  ============================================================ -->
+  <section class="featured" aria-label="Featured products shipping to the USA">
+    <div class="featured-head">
+      <div>
+        <p class="featured-eyebrow">Fast lane · Ships to the USA</p>
+        <h2 class="featured-title">Fan favourites, on their way to you</h2>
+      </div>
+      <p class="featured-sub">A handpicked mix across every budget — all from our US shipping collection.</p>
+    </div>
+    <div class="featured-viewport">
+      <div class="featured-track" id="featuredTrack">
+        <div class="fskel"></div><div class="fskel"></div><div class="fskel"></div>
+        <div class="fskel"></div><div class="fskel"></div><div class="fskel"></div>
+      </div>
     </div>
   </section>
 
@@ -1048,6 +1315,51 @@
     </div>
   </div>
 
+
+  <!-- ============================================================
+       SITE FOOTER
+  ============================================================ -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div>
+          <div class="footer-brand">
+            <div class="footer-brand-mark">🐾</div>
+            <span class="footer-brand-text">Pet<span>Nest</span></span>
+          </div>
+          <p class="footer-blurb">
+            Toys, food, grooming and comfort essentials for the pets who run the house.
+            Curated collections, fast shipping to Europe and the USA.
+          </p>
+          <div class="footer-contact">
+            <strong>Contact Information</strong><br />
+            Primary Business Email:
+            <a href="mailto:clearstepapp@gmail.com">clearstepapp@gmail.com</a>
+            <span class="footer-contact-note">
+              (Please note: clearstepapp@gmail.com is our official, centralized administration
+              account managing all online operations for PetNest)
+            </span>
+          </div>
+        </div>
+        <div>
+          <p class="footer-heading">Policies &amp; Info</p>
+          <ul class="footer-links">
+            <li><a href="https://hs1tmm-f5.myshopify.com/policies/privacy-policy" target="_blank" rel="noopener">Privacy policy</a></li>
+            <li><a href="https://hs1tmm-f5.myshopify.com/policies/refund-policy" target="_blank" rel="noopener">Refund policy</a></li>
+            <li><a href="https://hs1tmm-f5.myshopify.com/policies/shipping-policy" target="_blank" rel="noopener">Shipping policy</a></li>
+            <li><a href="https://hs1tmm-f5.myshopify.com/policies/terms-of-service" target="_blank" rel="noopener">Terms of service</a></li>
+            <li><a href="https://hs1tmm-f5.myshopify.com/policies/legal-notice" target="_blank" rel="noopener">Legal notice</a></li>
+            <li><a href="https://hs1tmm-f5.myshopify.com/pages/contact" target="_blank" rel="noopener">Contact information</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 PetNest. All rights reserved.</span>
+        <span>Secure checkout powered by Shopify</span>
+      </div>
+    </div>
+  </footer>
+
   <!-- Toast -->
   <div class="toast" id="toast"></div>
 
@@ -1064,7 +1376,7 @@
     const CONFIG = {
       shop:  'hs1tmm-f5.myshopify.com',
       token: 'b50e8521a98aab1e1863ce5b206c0886',   // ← paste your public token
-      api:   '2024-01',
+      api:   '2026-04',
     };
 
     const GQL_URL = `https://${CONFIG.shop}/api/${CONFIG.api}/graphql.json`;
@@ -1431,8 +1743,8 @@
       }).join('');
     }
 
-    // Delegation: card-level clicks
-    document.getElementById('productGrid').addEventListener('click', async (e) => {
+    // Delegation: card-level clicks (grid + featured marquee)
+    async function handleCardClick(e) {
       // Quick-view: image or title click
       const imageWrap = e.target.closest('.card-image-wrap');
       const titleEl   = e.target.closest('.card-title');
@@ -1459,7 +1771,79 @@
           atcBtn.textContent = 'Add to Cart';
         }
       }
-    });
+    }
+
+    document.getElementById('productGrid').addEventListener('click', handleCardClick);
+    document.getElementById('featuredTrack').addEventListener('click', handleCardClick);
+
+    /* ============================================================
+       FEATURED MARQUEE — ships to the USA
+    ============================================================ */
+    const USA_COLLECTION_HANDLE = 'shipping-to-the-usa';
+
+    function pickBalanced(products, count = 6) {
+      const inStock = products.filter(p => p.variants.edges[0]?.node?.availableForSale);
+      const pool = (inStock.length >= count ? inStock : products)
+        .slice()
+        .sort((a, b) =>
+          parseFloat(a.priceRange.minVariantPrice.amount) -
+          parseFloat(b.priceRange.minVariantPrice.amount));
+      if (pool.length <= count) return pool;
+      // Evenly spaced picks across the sorted price range → balanced price mix
+      const step = (pool.length - 1) / (count - 1);
+      const seen = new Set();
+      const picks = [];
+      for (let i = 0; i < count; i++) {
+        let idx = Math.round(i * step);
+        while (seen.has(idx) && idx < pool.length - 1) idx++;
+        seen.add(idx);
+        picks.push(pool[idx]);
+      }
+      return picks;
+    }
+
+    function featuredCardHTML(p) {
+      const img   = p.images.edges[0]?.node;
+      const price = p.priceRange.minVariantPrice;
+      const v     = p.variants.edges[0]?.node;
+      const avail = v?.availableForSale ?? false;
+      return `
+        <article class="fcard">
+          <div class="card-image-wrap" data-handle="${p.handle}" title="Quick view">
+            <span class="fcard-flag">🇺🇸 Ships to USA</span>
+            ${img
+              ? `<img src="${img.url}" alt="${img.altText || p.title}" loading="lazy" />`
+              : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:2rem;">🐾</div>`}
+          </div>
+          <div class="fcard-body">
+            <div class="card-vendor">${p.vendor || 'PetNest'}</div>
+            <div class="card-title" data-handle="${p.handle}">${p.title}</div>
+            <div class="fcard-row">
+              <span class="card-price">${formatMoney(price.amount, price.currencyCode)}</span>
+              <button class="card-atc" data-variant="${v?.id ?? ''}" ${(!avail || !v) ? 'disabled' : ''}>
+                ${avail ? 'Add to Cart' : 'Sold Out'}
+              </button>
+            </div>
+          </div>
+        </article>`;
+    }
+
+    async function loadFeatured() {
+      const track = document.getElementById('featuredTrack');
+      try {
+        const { products } = await fetchCollectionProducts(USA_COLLECTION_HANDLE);
+        const picks = pickBalanced(products, 6);
+        if (!picks.length) { track.closest('.featured').style.display = 'none'; return; }
+        const cards = picks.map(featuredCardHTML).join('');
+        // Duplicated set makes the -50% marquee loop seamless
+        track.innerHTML = cards + cards;
+        const seconds = Math.max(30, picks.length * 8);
+        track.style.animationDuration = `${seconds}s`;
+      } catch (err) {
+        console.error('[PetNest featured]', err);
+        track.closest('.featured').style.display = 'none';
+      }
+    }
 
     /* ============================================================
        SEARCH FILTER
@@ -1845,6 +2229,7 @@
     ============================================================ */
     async function init() {
       renderCartDrawer();
+      loadFeatured();
       try {
         await loadCollections();
         allProducts = await fetchAllProducts();
