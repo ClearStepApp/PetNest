@@ -295,10 +295,37 @@
       font-weight: 600;
       color: var(--text);
     }
+    .grid-controls {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
     .grid-meta {
       font-family: var(--font-mono);
       font-size: 0.75rem;
       color: var(--text-muted);
+    }
+    .sort-control {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+    .sort-control select {
+      appearance: none;
+      border: 1px solid var(--border);
+      background: var(--white);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 8px 32px 8px 12px;
+      font: inherit;
+      cursor: pointer;
+    }
+    .sort-control select:focus {
+      outline: 2px solid rgba(20, 157, 147, .25);
+      outline-offset: 1px;
     }
     .product-grid {
       display: grid;
@@ -910,6 +937,9 @@
       .collection-list { display: flex; flex-wrap: wrap; gap: 6px; }
       .collection-list li { margin: 0; }
       .collection-btn { padding: 6px 12px; font-size: 0.78rem; }
+      .grid-header { align-items: flex-start; gap: 12px; }
+      .grid-controls { flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
+      .sort-control select { padding-top: 7px; padding-bottom: 7px; }
       .hero { height: 280px; }
       .hero-title { font-size: 1.6rem; }
     }
@@ -1097,6 +1127,55 @@
     .fskel { flex: 0 0 auto; width: 250px; height: 320px; border-radius: calc(var(--radius) + 4px); background: var(--cream); border: 2px solid var(--border); }
 
     /* ============================================================
+       PETNEST CURATED
+    ============================================================ */
+    .curated {
+      position: relative;
+      padding: 44px 0 48px;
+      background: var(--cream);
+      border-bottom: 2px solid var(--border);
+      overflow: hidden;
+    }
+    .curated-head {
+      max-width: 1400px;
+      margin: 0 auto 26px;
+      padding: 0 24px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .curated-grid {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 6px 24px;
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 20px;
+    }
+    .curated .fcard { width: auto; min-width: 0; }
+    .curated .fcard .card-image-wrap { height: 220px; }
+    .curated-empty {
+      max-width: 1400px; margin: 0 auto; padding: 0 24px;
+      color: var(--text-muted);
+    }
+    @media (max-width: 1100px) {
+      .curated-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+    @media (max-width: 720px) {
+      .curated-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px; padding: 6px 16px;
+      }
+      .curated .fcard .card-image-wrap { height: 180px; }
+      .curated .fcard-body { padding: 12px; }
+    }
+    @media (max-width: 460px) {
+      .curated-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ============================================================
        SITE FOOTER
     ============================================================ */
     .site-footer {
@@ -1251,8 +1330,8 @@
       <p class="hero-eyebrow">✦ Trusted by pet lovers everywhere</p>
       <h1 class="hero-title">Smart Products.<br>Happier Pets. 🐾</h1>
       <p class="hero-sub">Discover clever products designed to make everyday life with your pets easier, happier and more fun.</p>
-      <button class="hero-cta" onclick="document.querySelector('.catalog-layout').scrollIntoView({behavior:'smooth'})">
-        SHOP BESTSELLERS ↓
+      <button class="hero-cta" onclick="document.querySelector('.featured').scrollIntoView({behavior:'smooth'})">
+        SHOP PETNEST FAVORITES ↓
       </button>
     </div>
   </section>
@@ -1265,15 +1344,31 @@
     <div class="featured-head">
       <div>
         <p class="featured-eyebrow">Fast lane · Ships to the USA</p>
-        <h2 class="featured-title">Fan favourites, on their way to you</h2>
+        <h2 class="featured-title">PetNest Favorites</h2>
       </div>
-      <p class="featured-sub">A handpicked mix across every budget — all from our US shipping collection.</p>
+      <p class="featured-sub">A handpicked selection of products we love for happier pets and easier pet parenting.</p>
     </div>
     <div class="featured-viewport">
       <div class="featured-track" id="featuredTrack">
         <div class="fskel"></div><div class="fskel"></div><div class="fskel"></div>
         <div class="fskel"></div><div class="fskel"></div><div class="fskel"></div>
       </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PETNEST CURATED
+  ============================================================ -->
+  <section class="curated" id="petnestCurated" aria-label="PetNest Curated products">
+    <div class="curated-head">
+      <div>
+        <p class="featured-eyebrow">Handpicked by PetNest</p>
+        <h2 class="featured-title">PetNest Curated</h2>
+      </div>
+      <p class="featured-sub">Products we've selected, updated and refined to give you a better PetNest experience.</p>
+    </div>
+    <div class="curated-grid" id="curatedGrid">
+      <div class="fskel"></div><div class="fskel"></div><div class="fskel"></div><div class="fskel"></div><div class="fskel"></div>
     </div>
   </section>
 
@@ -1298,7 +1393,19 @@
     <main>
       <div class="grid-header">
         <h2 class="grid-title" id="gridTitle">All Products</h2>
-        <span class="grid-meta" id="gridMeta"></span>
+        <div class="grid-controls">
+          <span class="grid-meta" id="gridMeta"></span>
+          <label class="sort-control">
+            <span>Sort by</span>
+            <select id="sortSelect" aria-label="Sort products">
+              <option value="recommended">Recommended</option>
+              <option value="price-asc">Price: Low to High</option>
+              <option value="price-desc">Price: High to Low</option>
+              <option value="name-asc">Name: A to Z</option>
+              <option value="name-desc">Name: Z to A</option>
+            </select>
+          </label>
+        </div>
       </div>
       <div class="product-grid" id="productGrid">
         <!-- Skeleton placeholders -->
@@ -1785,7 +1892,26 @@
       return { products, title };
     }
 
+    let sortOrder = 'recommended';
+
+    function sortProducts(products) {
+      const sorted = [...products];
+      switch (sortOrder) {
+        case 'price-asc':
+          return sorted.sort((a, b) => parseFloat(a.priceRange.minVariantPrice.amount) - parseFloat(b.priceRange.minVariantPrice.amount));
+        case 'price-desc':
+          return sorted.sort((a, b) => parseFloat(b.priceRange.minVariantPrice.amount) - parseFloat(a.priceRange.minVariantPrice.amount));
+        case 'name-asc':
+          return sorted.sort((a, b) => a.title.localeCompare(b.title));
+        case 'name-desc':
+          return sorted.sort((a, b) => b.title.localeCompare(a.title));
+        default:
+          return sorted;
+      }
+    }
+
     function renderProducts(products) {
+      products = sortProducts(products);
       const grid = document.getElementById('productGrid');
       document.getElementById('gridMeta').textContent =
         `${products.length} item${products.length !== 1 ? 's' : ''}`;
@@ -1860,29 +1986,33 @@
 
     document.getElementById('productGrid').addEventListener('click', handleCardClick);
     document.getElementById('featuredTrack').addEventListener('click', handleCardClick);
+    document.getElementById('curatedGrid').addEventListener('click', handleCardClick);
 
     /* ============================================================
        FEATURED MARQUEE — ships to the USA
     ============================================================ */
     const USA_COLLECTION_HANDLE = 'shipping-to-the-usa';
 
-    function pickBalanced(products, count = 6) {
-      const inStock = products.filter(p => p.variants.edges[0]?.node?.availableForSale);
-      const pool = (inStock.length >= count ? inStock : products)
-        .slice()
-        .sort((a, b) =>
-          parseFloat(a.priceRange.minVariantPrice.amount) -
-          parseFloat(b.priceRange.minVariantPrice.amount));
-      if (pool.length <= count) return pool;
-      // Evenly spaced picks across the sorted price range → balanced price mix
-      const step = (pool.length - 1) / (count - 1);
-      const seen = new Set();
+    // PetNest Favorites — select these products from the Shopify catalog.
+    // Shopify remains the source of truth for images, prices, variants and availability.
+    const FAVORITE_MATCHES = [
+      ['adventurecat', 'harness'],
+      ['litter', 'mat'],
+      ['gentlepaw', 'nail'],
+      ['calming', 'bed'],
+      ['scratch', 'soothe']
+    ];
+
+    function findFavoriteProducts(products) {
+      const used = new Set();
       const picks = [];
-      for (let i = 0; i < count; i++) {
-        let idx = Math.round(i * step);
-        while (seen.has(idx) && idx < pool.length - 1) idx++;
-        seen.add(idx);
-        picks.push(pool[idx]);
+      for (const terms of FAVORITE_MATCHES) {
+        const match = products.find(p => {
+          if (used.has(p.id)) return false;
+          const hay = `${p.title} ${p.handle}`.toLowerCase();
+          return terms.every(term => hay.includes(term));
+        });
+        if (match) { used.add(match.id); picks.push(match); }
       }
       return picks;
     }
@@ -1895,7 +2025,7 @@
       return `
         <article class="fcard">
           <div class="card-image-wrap" data-handle="${p.handle}" title="Quick view">
-            <span class="fcard-flag">🇺🇸 Ships to USA</span>
+            <span class="fcard-flag">⭐ PetNest Favorite</span>
             ${img
               ? `<img src="${img.url}" alt="${img.altText || p.title}" loading="lazy" />`
               : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:2rem;">🐾</div>`}
@@ -1916,19 +2046,73 @@
     async function loadFeatured() {
       const track = document.getElementById('featuredTrack');
       try {
-        const { products } = await fetchCollectionProducts(USA_COLLECTION_HANDLE);
-        const picks = pickBalanced(products, 6);
+        const picks = findFavoriteProducts(allProducts);
         if (!picks.length) { track.closest('.featured').style.display = 'none'; return; }
         const cards = picks.map(featuredCardHTML).join('');
-        // Duplicated set makes the -50% marquee loop seamless
         track.innerHTML = cards + cards;
         const seconds = Math.max(30, picks.length * 8);
         track.style.animationDuration = `${seconds}s`;
       } catch (err) {
-        console.error('[PetNest featured]', err);
+        console.error('[PetNest favorites]', err);
         track.closest('.featured').style.display = 'none';
       }
     }
+
+    function curatedCardHTML(p) {
+      const img   = p.images.edges[0]?.node;
+      const price = p.priceRange.minVariantPrice;
+      const v     = p.variants.edges[0]?.node;
+      const avail = v?.availableForSale ?? false;
+      return `
+        <article class="fcard">
+          <div class="card-image-wrap" data-handle="${p.handle}" title="Quick view">
+            <span class="fcard-flag">✓ PetNest Curated</span>
+            ${img
+              ? `<img src="${img.url}" alt="${img.altText || p.title}" loading="lazy" />`
+              : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:2rem;">🐾</div>`}
+          </div>
+          <div class="fcard-body">
+            <div class="card-vendor">${p.vendor || 'PetNest'}</div>
+            <div class="card-title" data-handle="${p.handle}">${p.title}</div>
+            <div class="fcard-row">
+              <span class="card-price">${formatMoney(price.amount, price.currencyCode)}</span>
+              <button class="card-atc" data-variant="${v?.id ?? ''}" ${(!avail || !v) ? 'disabled' : ''}>
+                ${avail ? 'Add to Cart' : 'Sold Out'}
+              </button>
+            </div>
+          </div>
+        </article>`;
+    }
+
+    async function loadCurated() {
+      const section = document.getElementById('petnestCurated');
+      const grid = document.getElementById('curatedGrid');
+      try {
+        const { products } = await fetchCollectionProducts('petnest-curated');
+        if (!products.length) {
+          section.style.display = 'none';
+          return;
+        }
+        grid.innerHTML = products.map(curatedCardHTML).join('');
+      } catch (err) {
+        console.error('[PetNest curated]', err);
+        section.style.display = 'none';
+      }
+    }
+
+    document.getElementById('sortSelect').addEventListener('change', (e) => {
+      sortOrder = e.target.value;
+      const source = filteredProducts.length ? filteredProducts : allProducts;
+      if (searchQuery) {
+        const results = source.filter(p =>
+          p.title.toLowerCase().includes(searchQuery) ||
+          (p.vendor && p.vendor.toLowerCase().includes(searchQuery))
+        );
+        renderProducts(results);
+      } else {
+        renderProducts(source);
+      }
+    });
 
     /* ============================================================
        SEARCH FILTER
@@ -2314,12 +2498,14 @@
     ============================================================ */
     async function init() {
       renderCartDrawer();
-      loadFeatured();
       try {
         await loadCollections();
         allProducts = await fetchAllProducts();
         filteredProducts = [];
         renderProducts(allProducts);
+        // Load Favorites and Curated only after Shopify products have been fetched.
+        await loadFeatured();
+        await loadCurated();
       } catch (err) {
         document.getElementById('productGrid').innerHTML = `
           <div style="grid-column:1/-1;padding:40px;text-align:center;color:#ef4444;">
