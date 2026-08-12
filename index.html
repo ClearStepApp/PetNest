@@ -1367,6 +1367,98 @@
       .shipping-callout { max-width:calc(100% - 32px); padding:10px 13px; font-size:.72rem; text-align:center; }
     }
 
+
+    /* ============================================================
+       CONVERSION / TRUST LAYER
+    ============================================================ */
+    .promo-bar {
+      width:100%; min-height:54px; display:flex; align-items:center; justify-content:center;
+      gap:12px; flex-wrap:wrap; padding:10px 18px; background:linear-gradient(90deg,#78350f,#9a3412,#78350f);
+      color:#fff; text-align:center; box-shadow:0 2px 10px rgba(0,0,0,.14); position:relative; z-index:90;
+    }
+    .promo-main { font-size:.92rem; font-weight:800; letter-spacing:.03em; }
+    .promo-code { display:inline-flex; align-items:center; gap:7px; background:rgba(255,255,255,.12); border:1px dashed rgba(255,255,255,.65); border-radius:7px; padding:6px 9px; font-family:var(--font-mono); font-size:.78rem; font-weight:700; }
+    .promo-copy { border:0; border-radius:999px; padding:7px 13px; background:var(--tangerine); color:#fff; font-weight:800; font-size:.75rem; cursor:pointer; transition:transform .15s,background .15s; }
+    .promo-copy:hover { background:var(--tangerine-dark); transform:translateY(-1px); }
+    .promo-note { font-size:.72rem; opacity:.82; }
+    .promo-hero-badge { display:inline-flex; align-items:center; gap:9px; width:max-content; max-width:100%; margin:0 0 12px; padding:9px 14px; border-radius:999px; background:#fff; color:var(--brown); box-shadow:0 6px 20px rgba(0,0,0,.15); font-size:.76rem; font-weight:800; letter-spacing:.035em; text-transform:uppercase; }
+    .promo-hero-badge strong { color:var(--tangerine-dark); }
+    .trust-strip { background:#fff; border-bottom:1px solid var(--border); border-top:1px solid var(--border); }
+    .trust-inner { max-width:1400px; margin:0 auto; padding:22px 24px; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:14px; }
+    .trust-item { display:flex; align-items:flex-start; gap:11px; padding:12px 13px; border-radius:12px; background:linear-gradient(180deg,#fff,#faf7f2); border:1px solid #eee7df; }
+    .trust-icon { width:36px; height:36px; flex:0 0 36px; display:flex; align-items:center; justify-content:center; border-radius:10px; background:#e7f6f4; font-size:1.05rem; }
+    .trust-copy strong { display:block; font-size:.84rem; line-height:1.25; margin-bottom:3px; }
+    .trust-copy span { display:block; color:var(--text-muted); font-size:.72rem; line-height:1.45; }
+    .trust-item.shopify-trust { border:2px solid rgba(13,148,136,.28); background:linear-gradient(135deg,#f0fbfa,#fff); box-shadow:0 5px 18px rgba(13,148,136,.08); }
+    .trust-item.shopify-trust .trust-icon { background:var(--teal); color:#fff; }
+    .trust-item.shopify-trust .trust-copy strong { color:var(--teal-dark); }
+
+    .curated-offer { max-width:1400px; margin:0 auto 24px; padding:0 24px; }
+    .curated-offer-inner { display:flex; align-items:center; justify-content:space-between; gap:18px; padding:18px 22px; border-radius:16px; color:#fff; background:linear-gradient(100deg,var(--brown),#a83f0d,var(--tangerine)); box-shadow:0 12px 30px rgba(120,53,15,.18); }
+    .curated-offer-title { font-size:1.05rem; font-weight:800; margin-bottom:3px; }
+    .curated-offer-copy { font-size:.78rem; opacity:.9; }
+    .curated-offer-code { font-family:var(--font-mono); font-weight:800; letter-spacing:.04em; }
+    .curated-offer-actions { display:flex; align-items:center; gap:9px; flex-shrink:0; }
+    .curated-offer-btn { border:0; border-radius:999px; padding:10px 15px; background:#fff; color:var(--brown); font-weight:800; cursor:pointer; }
+    .curated-offer-copybtn { border:1px solid rgba(255,255,255,.5); border-radius:999px; padding:9px 13px; background:rgba(255,255,255,.08); color:#fff; font-weight:700; cursor:pointer; }
+
+    .faq-section { padding:68px 24px; background:#fff; border-top:2px solid var(--border); }
+    .faq-inner { max-width:1000px; margin:0 auto; }
+    .faq-head { text-align:center; margin-bottom:28px; }
+    .faq-head .featured-eyebrow { justify-content:center; }
+    .faq-list { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .faq-item { border:1px solid var(--border); border-radius:14px; background:var(--cream); overflow:hidden; }
+    .faq-item summary { cursor:pointer; list-style:none; padding:17px 18px; font-weight:700; font-size:.9rem; display:flex; align-items:center; justify-content:space-between; gap:15px; }
+    .faq-item summary::-webkit-details-marker { display:none; }
+    .faq-item summary::after { content:'+'; color:var(--teal); font-size:1.2rem; font-weight:500; }
+    .faq-item[open] summary::after { content:'−'; }
+    .faq-answer { padding:0 18px 18px; color:var(--text-muted); font-size:.82rem; line-height:1.65; }
+    .faq-answer a { color:var(--teal); text-decoration:underline; }
+
+    .secure-checkout-note { display:flex; align-items:center; justify-content:center; gap:8px; margin-top:10px; padding:9px 10px; border-radius:8px; background:#e9f7f5; color:var(--teal-dark); font-size:.72rem; font-weight:700; border:1px solid rgba(13,148,136,.2); }
+    .secure-checkout-note strong { font-weight:800; }
+
+    .offer-modal-backdrop { position:fixed; inset:0; z-index:500; display:flex; align-items:center; justify-content:center; padding:20px; background:rgba(28,25,23,.62); backdrop-filter:blur(4px); opacity:0; visibility:hidden; transition:opacity .22s,visibility .22s; }
+    .offer-modal-backdrop.open { opacity:1; visibility:visible; }
+    .offer-modal { position:relative; width:min(520px,100%); background:#fff; border-radius:22px; overflow:hidden; box-shadow:0 30px 90px rgba(0,0,0,.28); transform:translateY(12px) scale(.97); transition:transform .22s; }
+    .offer-modal-backdrop.open .offer-modal { transform:none; }
+    .offer-top { padding:26px 26px 22px; background:linear-gradient(135deg,var(--brown),var(--tangerine)); color:#fff; text-align:center; }
+    .offer-kicker { font-family:var(--font-mono); font-size:.68rem; letter-spacing:.16em; text-transform:uppercase; opacity:.85; margin-bottom:8px; }
+    .offer-title { font-size:1.75rem; line-height:1.1; font-weight:800; margin-bottom:8px; }
+    .offer-sub { font-size:.84rem; line-height:1.5; opacity:.92; }
+    .offer-body { padding:24px 26px 26px; text-align:center; }
+    .offer-codebox { display:flex; align-items:center; justify-content:center; gap:9px; margin:4px auto 15px; padding:12px 14px; width:max-content; max-width:100%; border:2px dashed rgba(120,53,15,.25); border-radius:12px; background:var(--cream); }
+    .offer-codebox code { font-family:var(--font-mono); font-size:1.05rem; font-weight:800; color:var(--brown); }
+    .offer-copybtn { border:0; border-radius:8px; padding:8px 11px; background:var(--tangerine); color:#fff; font-weight:800; font-size:.75rem; cursor:pointer; }
+    .offer-cta { display:block; width:100%; padding:13px; border:0; border-radius:10px; background:var(--teal); color:#fff; font-weight:800; font-size:.92rem; cursor:pointer; }
+    .offer-cta:hover { background:var(--teal-dark); }
+    .offer-small { margin-top:10px; color:var(--text-muted); font-size:.68rem; line-height:1.45; }
+    .offer-close { position:absolute; top:12px; right:12px; width:32px; height:32px; border:0; border-radius:50%; background:rgba(255,255,255,.16); color:#fff; font-size:1.25rem; cursor:pointer; z-index:2; }
+    .offer-close:hover { background:rgba(255,255,255,.25); }
+
+    @media (max-width:900px) { .trust-inner { grid-template-columns:1fr 1fr; } }
+    @media (max-width:720px) {
+      .promo-bar { min-height:58px; gap:7px; padding:9px 12px; }
+      .promo-main { font-size:.78rem; }
+      .promo-note { display:none; }
+      .trust-inner { grid-template-columns:1fr 1fr; padding:14px 16px; }
+      .trust-item { padding:10px; }
+      .trust-copy span { font-size:.68rem; }
+      .curated-offer { padding:0 16px; }
+      .curated-offer-inner { align-items:flex-start; flex-direction:column; padding:17px; }
+      .curated-offer-actions { width:100%; }
+      .curated-offer-btn { flex:1; }
+      .faq-section { padding:52px 16px; }
+      .faq-list { grid-template-columns:1fr; }
+    }
+    @media (max-width:480px) {
+      .promo-code { padding:5px 7px; font-size:.68rem; }
+      .promo-copy { padding:6px 10px; }
+      .trust-inner { grid-template-columns:1fr; }
+      .offer-modal { border-radius:18px; }
+      .offer-title { font-size:1.5rem; }
+    }
+
   </style>
 </head>
 
@@ -1406,6 +1498,12 @@
       </button>
     </div>
   </header>
+  <div class="promo-bar" role="note" aria-label="PetNest Curated first-order promotion">
+    <span class="promo-main">🎁 NEW CUSTOMER: 25% OFF PETNEST CURATED</span>
+    <span class="promo-code">PETNEST0811</span>
+    <button class="promo-copy" type="button" onclick="copyPetNestCode()">COPY CODE</button>
+    <span class="promo-note">First order · Curated collection only</span>
+  </div>
   <div class="us-shipping-bar" role="note"><span class="ship-icon">🇺🇸</span><strong>FREE SHIPPING ON ALL US ORDERS</strong><span>•</span><span>NO MINIMUM</span></div>
 
   <!-- ============================================================
@@ -1416,12 +1514,25 @@
     <div class="hero-overlay"></div>
     <div class="hero-content">
       <p class="hero-eyebrow">✦ Trusted by pet lovers everywhere</p>
+      <div class="promo-hero-badge">🎁 <span><strong>25% OFF PETNEST CURATED</strong> · Code: PETNEST0811</span></div>
       <div class="shipping-hero-badge"><span>🇺🇸</span> FREE SHIPPING ON ALL US ORDERS</div>
       <h1 class="hero-title">Smart Products.<br>Happier Pets. 🐾</h1>
       <p class="hero-sub">Discover clever products designed to make everyday life with your pets easier, happier and more fun.</p>
-      <button class="hero-cta" onclick="document.querySelector('.featured').scrollIntoView({behavior:'smooth'})">
-        SHOP PETNEST FAVORITES ↓
+      <button class="hero-cta" onclick="document.querySelector('#petnestCurated').scrollIntoView({behavior:'smooth'})">
+        SHOP CURATED &amp; SAVE 25% ↓
       </button>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       TRUST STRIP
+  ============================================================ -->
+  <section class="trust-strip" aria-label="Why shop with PetNest">
+    <div class="trust-inner">
+      <div class="trust-item"><div class="trust-icon">🇺🇸</div><div class="trust-copy"><strong>Free shipping to the USA</strong><span>On every order, no minimum spend.</span></div></div>
+      <div class="trust-item"><div class="trust-icon">⏱️</div><div class="trust-copy"><strong>1–7 day delivery</strong><span>Typical door-to-door time for US orders.</span></div></div>
+      <div class="trust-item shopify-trust"><div class="trust-icon">🔒</div><div class="trust-copy"><strong>Secure Shopify checkout</strong><span>Payments are handled by Shopify.</span></div></div>
+      <div class="trust-item"><div class="trust-icon">💬</div><div class="trust-copy"><strong>A real person answers</strong><span>Christopher reads and answers messages personally.</span></div></div>
     </div>
   </section>
 
@@ -1451,6 +1562,18 @@
   ============================================================ -->
   <section class="curated" id="petnestCurated" aria-label="PetNest Curated products">
     <div class="shipping-callout"><span class="ship-icon">🇺🇸</span><strong>FREE SHIPPING ON ALL US ORDERS</strong></div>
+    <div class="curated-offer">
+      <div class="curated-offer-inner">
+        <div>
+          <div class="curated-offer-title">🎁 Save 25% on your first PetNest Curated order</div>
+          <div class="curated-offer-copy">Use code <span class="curated-offer-code">PETNEST0811</span> at Shopify checkout.</div>
+        </div>
+        <div class="curated-offer-actions">
+          <button class="curated-offer-copybtn" type="button" onclick="copyPetNestCode()">COPY CODE</button>
+          <button class="curated-offer-btn" type="button" onclick="document.getElementById('petnestCurated').scrollIntoView({behavior:'smooth'})">SHOP CURATED →</button>
+        </div>
+      </div>
+    </div>
     <div class="curated-head">
       <div>
         <p class="featured-eyebrow">Handpicked by PetNest</p>
@@ -1570,9 +1693,31 @@
         <span id="cartSubtotal">$0.00</span>
       </div>
       <button class="checkout-btn" id="checkoutBtn">Checkout on Shopify →</button>
+      <div class="secure-checkout-note">🔒 <strong>Secure checkout powered by Shopify</strong></div>
     </div>
   </div>
 
+
+  <!-- ============================================================
+       FAQ
+  ============================================================ -->
+  <section class="faq-section" id="faq" aria-label="Frequently asked questions">
+    <div class="faq-inner">
+      <div class="faq-head">
+        <p class="featured-eyebrow">Shopping with confidence</p>
+        <h2 class="featured-title">Frequently Asked Questions</h2>
+        <p class="featured-sub" style="margin:10px auto 0;">A few straightforward answers before you order.</p>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item"><summary>How much is shipping to the USA?</summary><div class="faq-answer">Shipping to the USA is <strong>free on every order</strong>, with no minimum spend.</div></details>
+        <details class="faq-item"><summary>How long does delivery take?</summary><div class="faq-answer">Typical door-to-door delivery time for US orders is <strong>1–7 days</strong>.</div></details>
+        <details class="faq-item"><summary>What if there is a problem with my order?</summary><div class="faq-answer">If you need to report a problem with your store experience or an order, contact Christopher at <a href="mailto:clearstepapp@gmail.com">clearstepapp@gmail.com</a>. He reads and answers every message personally.</div></details>
+        <details class="faq-item"><summary>Can I return an item if I change my mind?</summary><div class="faq-answer">Yes. For a change-of-mind return, the customer pays the return shipping cost.</div></details>
+        <details class="faq-item"><summary>Is payment secure?</summary><div class="faq-answer">Yes. Checkout and payment processing are handled through <strong>Shopify</strong>. PetNest does not see your card details.</div></details>
+        <details class="faq-item"><summary>Who am I buying from?</summary><div class="faq-answer">PetNest is run by <strong>Christopher</strong>. He has 11 years of experience in customer service, dispute handling and Quality Assurance, and personally answers customer messages.</div></details>
+      </div>
+    </div>
+  </section>
 
   <!-- ============================================================
        ABOUT ME
@@ -1644,6 +1789,25 @@
     </div>
   </footer>
 
+  <!-- ============================================================
+       FIRST-ORDER OFFER POPUP
+  ============================================================ -->
+  <div class="offer-modal-backdrop" id="offerModal" role="dialog" aria-modal="true" aria-labelledby="offerTitle">
+    <div class="offer-modal">
+      <button class="offer-close" id="offerClose" type="button" aria-label="Close offer">×</button>
+      <div class="offer-top">
+        <div class="offer-kicker">A little PetNest welcome gift</div>
+        <div class="offer-title" id="offerTitle">Get 25% off PetNest Curated</div>
+        <div class="offer-sub">Use this code on your first order from the PetNest Curated collection.</div>
+      </div>
+      <div class="offer-body">
+        <div class="offer-codebox"><code id="offerCode">PETNEST0811</code><button class="offer-copybtn" type="button" onclick="copyPetNestCode()">COPY</button></div>
+        <button class="offer-cta" type="button" onclick="closeOfferAndShop()">SHOP PETNEST CURATED →</button>
+        <div class="offer-small">Free US shipping on all orders. Code applies to PetNest Curated products only.</div>
+      </div>
+    </div>
+  </div>
+
   <!-- Toast -->
   <div class="toast" id="toast"></div>
 
@@ -1653,6 +1817,34 @@
   <script>
   (() => {
     'use strict';
+
+    /* ============================================================
+       PETNEST OFFER HELPERS
+    ============================================================ */
+    const PETNEST_DISCOUNT_CODE = 'PETNEST0811';
+    function copyPetNestCode() {
+      const done = () => {
+        if (typeof showToast === 'function') showToast('Code copied: PETNEST0811 🎁');
+      };
+      if (navigator.clipboard?.writeText) {
+        navigator.clipboard.writeText(PETNEST_DISCOUNT_CODE).then(done).catch(() => fallbackCopyCode(done));
+      } else fallbackCopyCode(done);
+    }
+    function fallbackCopyCode(done) {
+      const ta = document.createElement('textarea');
+      ta.value = PETNEST_DISCOUNT_CODE; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); } catch {}
+      ta.remove(); done();
+    }
+    function closeOfferAndShop() {
+      closeOffer();
+      document.getElementById('petnestCurated')?.scrollIntoView({behavior:'smooth'});
+    }
+    function closeOffer() {
+      document.getElementById('offerModal')?.classList.remove('open');
+      localStorage.setItem('petnest_offer_seen', '1');
+    }
 
     /* ============================================================
        CONFIG — update these to match your store
@@ -2610,6 +2802,24 @@
     }
 
     init();
+
+    /* ============================================================
+       OFFER POPUP — once per visitor, after 25s or desktop exit intent
+    ============================================================ */
+    const offerModal = document.getElementById('offerModal');
+    const offerClose = document.getElementById('offerClose');
+    let offerShown = false;
+    function showOffer() {
+      if (offerShown || localStorage.getItem('petnest_offer_seen') === '1') return;
+      offerShown = true;
+      offerModal?.classList.add('open');
+    }
+    offerClose?.addEventListener('click', closeOffer);
+    offerModal?.addEventListener('click', (e) => { if (e.target === offerModal) closeOffer(); });
+    setTimeout(showOffer, 25000);
+    document.addEventListener('mouseout', (e) => {
+      if (e.clientY <= 4 && e.relatedTarget === null) showOffer();
+    });
 
   })();
   </script>
