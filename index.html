@@ -1430,6 +1430,13 @@
     .offer-codebox { display:flex; align-items:center; justify-content:center; gap:9px; margin:4px auto 15px; padding:12px 14px; width:max-content; max-width:100%; border:2px dashed rgba(120,53,15,.25); border-radius:12px; background:var(--cream); }
     .offer-codebox code { font-family:var(--font-mono); font-size:1.05rem; font-weight:800; color:var(--brown); }
     .offer-copybtn { border:0; border-radius:8px; padding:8px 11px; background:var(--tangerine); color:#fff; font-weight:800; font-size:.75rem; cursor:pointer; }
+    .offer-email-label { display:block; margin:2px 0 7px; font-size:.78rem; font-weight:700; color:var(--text); text-align:left; }
+    .offer-email-row { display:flex; gap:8px; margin:0 0 12px; }
+    .offer-email-input { flex:1; min-width:0; padding:11px 12px; border:1.5px solid var(--border); border-radius:9px; font:inherit; font-size:.82rem; outline:none; background:#fff; color:var(--text); }
+    .offer-email-input:focus { border-color:var(--teal); box-shadow:0 0 0 3px rgba(13,148,136,.10); }
+    .offer-email-btn { flex:0 0 auto; padding:11px 13px; border:0; border-radius:9px; background:var(--brown); color:#fff; font-weight:800; font-size:.78rem; cursor:pointer; }
+    .offer-email-btn:hover { background:#5f290c; }
+    .offer-email-status { min-height:18px; margin:-4px 0 10px; font-size:.7rem; font-weight:700; color:var(--teal-dark); text-align:left; }
     .offer-cta { display:block; width:100%; padding:13px; border:0; border-radius:10px; background:var(--teal); color:#fff; font-weight:800; font-size:.92rem; cursor:pointer; }
     .offer-cta:hover { background:var(--teal-dark); }
     .offer-small { margin-top:10px; color:var(--text-muted); font-size:.68rem; line-height:1.45; }
@@ -1802,6 +1809,12 @@
       </div>
       <div class="offer-body">
         <div class="offer-codebox"><code id="offerCode">PETNEST0811</code><button class="offer-copybtn" type="button" onclick="copyPetNestCode()">COPY</button></div>
+        <label class="offer-email-label" for="pn-email">Get the code + future PetNest offers by email</label>
+        <div class="offer-email-row">
+          <input class="offer-email-input" type="email" id="pn-email" autocomplete="email" placeholder="Your email address" aria-label="Email address" />
+          <button class="offer-email-btn" type="button" id="pn-email-btn">SAVE 25%</button>
+        </div>
+        <div class="offer-email-status" id="pn-email-status" aria-live="polite"></div>
         <button class="offer-cta" type="button" onclick="closeOfferAndShop()">SHOP PETNEST CURATED →</button>
         <div class="offer-small">Free US shipping on all orders. Code applies to PetNest Curated products only.</div>
       </div>
@@ -1817,6 +1830,47 @@
   <script>
   (() => {
     'use strict';
+
+    /* ============================================================
+       BASE44 CONVERSION TRACKING
+       Endpoint supplied by the PetNest Base44 tracking setup.
+       Tracks page views, add-to-cart events and captured emails.
+    ============================================================ */
+    const PN_TRACKING_ENDPOINT = 'https://hot-cozy-pet-haven.base44.app/functions/trackEvent';
+
+    function pnGetId(key, prefix) {
+      let value = localStorage.getItem(key);
+      if (!value) {
+        value = (window.crypto?.randomUUID ? window.crypto.randomUUID() : `${prefix}_${Date.now()}_${Math.random().toString(36).slice(2)}`);
+        localStorage.setItem(key, value);
+      }
+      return value;
+    }
+
+    const pnSessionId = pnGetId('pn_sid', 'sid');
+    const pnVisitorId = pnGetId('pn_vid', 'vid');
+
+    window.pnTrack = function(eventType, data = {}) {
+      const payload = {
+        ...data,
+        session_id: pnSessionId,
+        visitor_id: pnVisitorId,
+        event_type: eventType,
+        page_url: window.location.href,
+        referrer: document.referrer || '',
+        device: navigator.userAgent || ''
+      };
+
+      return fetch(PN_TRACKING_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+        keepalive: true
+      }).catch(() => {});
+    };
+
+    // Base page-view event.
+    window.pnTrack('page_view');
 
     /* ============================================================
        PETNEST OFFER HELPERS
@@ -1845,6 +1899,36 @@
       document.getElementById('offerModal')?.classList.remove('open');
       localStorage.setItem('petnest_offer_seen', '1');
     }
+
+    async function capturePetNestEmail() {
+      const input = document.getElementById('pn-email');
+      const button = document.getElementById('pn-email-btn');
+      const status = document.getElementById('pn-email-status');
+      const email = input?.value.trim() || '';
+
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        if (status) status.textContent = 'Please enter a valid email address.';
+        input?.focus();
+        return;
+      }
+
+      if (button) { button.disabled = true; button.textContent = 'SAVING…'; }
+      try {
+        await window.pnTrack('email_captured', { email });
+        localStorage.setItem('pn_email_captured', '1');
+        if (status) status.textContent = '✓ You’re in! Your 25% code is ready to use.';
+        if (input) input.value = '';
+        if (button) button.textContent = 'SAVED ✓';
+      } catch {
+        if (status) status.textContent = 'Something went wrong. Please try again.';
+        if (button) { button.disabled = false; button.textContent = 'SAVE 25%'; }
+      }
+    }
+
+    document.getElementById('pn-email-btn')?.addEventListener('click', capturePetNestEmail);
+    document.getElementById('pn-email')?.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') capturePetNestEmail();
+    });
 
     /* ============================================================
        CONFIG — update these to match your store
@@ -1966,6 +2050,18 @@
         `, { cartId, variantId, qty: quantity });
         cartData = data.cartLinesAdd.cart;
       }
+
+      // Track only after Shopify confirms the add-to-cart succeeded.
+      const trackedLine = cartData?.lines?.edges?.find(({ node }) =>
+        node?.merchandise?.id === variantId
+      )?.node;
+      window.pnTrack('add_to_cart', {
+        variant_id: variantId,
+        quantity: quantity,
+        product_title: trackedLine?.merchandise?.product?.title || '',
+        variant_title: trackedLine?.merchandise?.title || ''
+      });
+
       updateCartBadge();
       renderCartDrawer();
       openCart();
@@ -2816,7 +2912,7 @@
     }
     offerClose?.addEventListener('click', closeOffer);
     offerModal?.addEventListener('click', (e) => { if (e.target === offerModal) closeOffer(); });
-    setTimeout(showOffer, 25000);
+    setTimeout(showOffer, 8000);
     document.addEventListener('mouseout', (e) => {
       if (e.clientY <= 4 && e.relatedTarget === null) showOffer();
     });
